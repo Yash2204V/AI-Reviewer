@@ -1,0 +1,28 @@
+{
+  "name": "code-reviewer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm --prefix backend start",
+    "client": "npm --prefix frontend start",
+    "install": "npm install --prefix backend && npm install --prefix frontend",
+    "build": "npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yash2204V/AI-Reviewer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Yash2204V/AI-Reviewer/issues"
+  },
+  "homepage": "https://github.com/Yash2204V/AI-Reviewer#readme",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

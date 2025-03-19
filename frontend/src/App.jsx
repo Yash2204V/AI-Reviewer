@@ -7,6 +7,7 @@ import rehypeHighlight from "rehype-highlight"
 import "highlight.js/styles/github.css"
 import Markdown from "react-markdown"
 import axios from "axios"
+import { Loader } from 'lucide-react'
 
 const App = () => {
 
@@ -24,6 +25,8 @@ const App = () => {
     const response = await axios.post('http://localhost:3000/ai/get-review', { code });
     setReview(response.data);
   }
+
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -45,10 +48,21 @@ const App = () => {
               }}
             />
           </div>
-          <div onClick={reviewCode} className="review absolute bg-blue-300 bottom-4 right-4 text-black px-8 py-2 rounded-lg select-none cursor-pointer">Review</div>
+          <div 
+            onClick={async () => {
+              setLoading(true);
+              await reviewCode();
+              setLoading(false);
+            }} 
+            className="review fixed bg-blue-300 bottom-6 right-10 text-black px-8 py-2 rounded-lg select-none cursor-pointer"
+          >
+            {loading ? <Loader /> : 'Review'}
+            
+          </div>
         </div>
-        <div className="right h-full sm:basis-[50%] bg-black rounded-md  p-6 text-white overflow-y-scroll">
-          <Markdown rehypePlugins={[rehypeHighlight]}>{review}</Markdown></div>
+        <div className="right h-full sm:basis-[50%] bg-black rounded-md p-6 text-white overflow-y-scroll text-lg">
+          <Markdown rehypePlugins={[rehypeHighlight]}>{review}</Markdown>
+        </div>
       </main>
     </>
   )
